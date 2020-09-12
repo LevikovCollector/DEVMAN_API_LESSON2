@@ -15,7 +15,7 @@ python main.py
 ```
 
 Формирование короткой ссылки
-![](https://drive.google.com/file/d/1j8EtS1vbvi8A3FGELIz79ujskWbhRvJX/view?usp=sharing)
+![](https://drive.google.com/uc?export=view&id=1j8EtS1vbvi8A3FGELIz79ujskWbhRvJX)
 
 Получение количества кликов
-![](https://drive.google.com/file/d/1p86n5nJ_McoiBkzecmiW2zIUVlU_vBVa/view?usp=sharing)
+![](https://drive.google.com/uc?export=view&id=1p86n5nJ_McoiBkzecmiW2zIUVlU_vBVa)
