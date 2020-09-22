@@ -3,20 +3,10 @@ import os
 from urllib.parse import urlsplit
 from dotenv import load_dotenv
 
-load_dotenv(dotenv_path='config.env')
-header = {'Authorization': f'Bearer {os.getenv("TOKEN")}'}
-api_url = 'https://api-ssl.bitly.com/v4'
-
-def user_request():
-    user = '/user'
-    response = requests.get(f'{api_url}{user}', headers=header)
-    response.raise_for_status()
-    return response.json()
-
 def shorten_link(link):
     bitlinks = '/bitlinks'
     params_for_request = {'long_url': link}
-    respons = requests.post(f'{api_url}{bitlinks}', headers = header, json=params_for_request)
+    respons = requests.post(f'{API_URL}{bitlinks}', headers = HEADER, json=params_for_request)
     respons.raise_for_status()
     return respons.json()['link']
 
@@ -26,13 +16,17 @@ def count_clicks(link):
     summary = f'/bitlinks/{bitlink_parts.netloc}{bitlink_parts.path}/clicks/summary'
     request_params = {'unit': 'day',
                       'units':'-1'}
-    respons = requests.get(f'{api_url}{summary}', headers = header, params=request_params)
+    respons = requests.get(f'{API_URL}{summary}', headers = HEADER, params=request_params)
     respons.raise_for_status()
     return respons.json()['total_clicks']
 
 
 
 if __name__ == "__main__":
+    load_dotenv(dotenv_path='config.env')
+    HEADER = {'Authorization': f'Bearer {os.getenv("BITLY_TOKEN")}'}
+    API_URL = 'https://api-ssl.bitly.com/v4'
+
     user_link = input('Введите ссылку: ')
     short_link = None
     if user_link.startswith('https://bit.ly'):
