@@ -2,6 +2,16 @@ import requests
 import os
 from urllib.parse import urlsplit
 from dotenv import load_dotenv
+import sys
+import argparse
+
+
+def createParser():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('link', nargs='?')
+
+    return parser
+
 
 def shorten_link(link, api_url, header):
     bitlinks = '/bitlinks'
@@ -27,7 +37,9 @@ if __name__ == "__main__":
     header = {'Authorization': f'Bearer {os.getenv("BITLY_TOKEN")}'}
     api_url = 'https://api-ssl.bitly.com/v4'
 
-    user_link = input('Введите ссылку: ')
+    parser = createParser()
+    user_link = parser.parse_args().link
+
     short_link = None
     if user_link.startswith('https://bit.ly'):
         try:
