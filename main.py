@@ -2,11 +2,10 @@ import requests
 import os
 from urllib.parse import urlsplit
 from dotenv import load_dotenv
-import sys
 import argparse
 
 
-def createParser():
+def CreateParser():
     parser = argparse.ArgumentParser()
     parser.add_argument('link', nargs='?')
 
@@ -16,7 +15,7 @@ def createParser():
 def shorten_link(link, api_url, header):
     bitlinks = '/bitlinks'
     params_for_request = {'long_url': link}
-    respons = requests.post(f'{api_url}{bitlinks}', headers = header, json=params_for_request)
+    respons = requests.post(f'{api_url}{bitlinks}', headers=header, json=params_for_request)
     respons.raise_for_status()
     return respons.json()['link']
 
@@ -25,11 +24,10 @@ def count_clicks(link, api_url, header):
     bitlink_parts = urlsplit(link)
     summary = f'/bitlinks/{bitlink_parts.netloc}{bitlink_parts.path}/clicks/summary'
     request_params = {'unit': 'day',
-                      'units':'-1'}
-    respons = requests.get(f'{api_url}{summary}', headers = header, params=request_params)
+                      'units': '-1'}
+    respons = requests.get(f'{api_url}{summary}', headers=header, params=request_params)
     respons.raise_for_status()
     return respons.json()['total_clicks']
-
 
 
 if __name__ == "__main__":
@@ -37,7 +35,7 @@ if __name__ == "__main__":
     header = {'Authorization': f'Bearer {os.getenv("BITLY_TOKEN")}'}
     api_url = 'https://api-ssl.bitly.com/v4'
 
-    parser = createParser()
+    parser = CreateParser()
     user_link = parser.parse_args().link
 
     short_link = None
