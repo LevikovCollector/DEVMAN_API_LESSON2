@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import argparse
 
 
-def CreateParser():
+def create_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('link', nargs='?')
 
@@ -35,7 +35,7 @@ if __name__ == "__main__":
     header = {'Authorization': f'Bearer {os.getenv("BITLY_TOKEN")}'}
     api_url = 'https://api-ssl.bitly.com/v4'
 
-    parser = CreateParser()
+    parser = create_parser()
     user_link = parser.parse_args().link
 
     short_link = None
